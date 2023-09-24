@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+</head>
+<body>
+    <h1>Add Member</h1>
+    <form id="memberForm">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required><br><br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <input type="submit" value="Add Member">
+    </form>
+
+    <script>
+        document.getElementById('memberForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const id = document.getElementById('id').value;
+            const name = document.getElementById('name').value;
+
+            fetch(`/20110370/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id, name })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Hiển thị kết quả hoặc thông báo tùy theo dữ liệu trả về
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
